@@ -32,6 +32,7 @@ void Render::Display( io2d::output_surface &surface )
     DrawEndPosition(surface);
 }
 
+// draws a found path
 void Render::DrawPath(io2d::output_surface &surface) const{
     io2d::render_props aliased{ io2d::antialias::none };
     io2d::brush foreBrush{ io2d::rgba_color::orange}; 
@@ -40,6 +41,7 @@ void Render::DrawPath(io2d::output_surface &surface) const{
 
 }
 
+// draw an end
 void Render::DrawEndPosition(io2d::output_surface &surface) const{
     if (m_Model.path.empty()) return;
     io2d::render_props aliased{ io2d::antialias::none };
@@ -60,6 +62,7 @@ void Render::DrawEndPosition(io2d::output_surface &surface) const{
     surface.stroke(foreBrush, io2d::interpreted_path{pb}, std::nullopt, std::nullopt, std::nullopt, aliased);
 }
 
+// draw a start
 void Render::DrawStartPosition(io2d::output_surface &surface) const{
     if (m_Model.path.empty()) return;
 
@@ -81,6 +84,7 @@ void Render::DrawStartPosition(io2d::output_surface &surface) const{
     surface.stroke(foreBrush, io2d::interpreted_path{pb}, std::nullopt, std::nullopt, std::nullopt, aliased);
 }
 
+// render buildings
 void Render::DrawBuildings(io2d::output_surface &surface) const
 {
     for( auto &building: m_Model.Buildings() ) {
@@ -90,6 +94,7 @@ void Render::DrawBuildings(io2d::output_surface &surface) const
     }
 }
 
+// render things
 void Render::DrawLeisure(io2d::output_surface &surface) const
 {
     for( auto &leisure: m_Model.Leisures()) {
@@ -99,12 +104,14 @@ void Render::DrawLeisure(io2d::output_surface &surface) const
     }
 }
 
+// render water areas
 void Render::DrawWater(io2d::output_surface &surface) const
 {
     for( auto &water: m_Model.Waters())
         surface.fill(m_WaterFillBrush, PathFromMP(water));
 }
 
+// render landfields, fields etc
 void Render::DrawLanduses(io2d::output_surface &surface) const
 {
     for( auto &landuse: m_Model.Landuses() )
@@ -112,6 +119,7 @@ void Render::DrawLanduses(io2d::output_surface &surface) const
             surface.fill(br->second, PathFromMP(landuse));
 }
 
+// render roads
 void Render::DrawHighways(io2d::output_surface &surface) const
 {
     auto ways = m_Model.Ways().data();
@@ -125,6 +133,7 @@ void Render::DrawHighways(io2d::output_surface &surface) const
         }
 }
 
+// render railways
 void Render::DrawRailways(io2d::output_surface &surface) const
 {     
     auto ways = m_Model.Ways().data();
